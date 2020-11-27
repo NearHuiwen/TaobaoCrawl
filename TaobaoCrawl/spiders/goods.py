@@ -38,6 +38,7 @@ class GoodsSpider(scrapy.Spider):
         }
         self.mysql_utils = MySql_Utils()
 
+        #搜索词
         self.search_word_list=["眼镜","面霜"]
 
     def start_requests(self):
