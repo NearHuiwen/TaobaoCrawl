@@ -70,7 +70,8 @@ $ git clone https://github.com/NearHuiwen/TaobaoCrawl.git
 
 1、登录淘宝后，随便搜索点东西，获取cookie如下图
 
-<img src="https://raw.githubusercontent.com/NearHuiwen/TaobaoCrawl/master/picture/a.png" width="700">
+<img src="https://raw.githubusercontent.com/NearHuiwen/TaobaoCrawl/master/TaobaoCrawl/picture/a.png" width="800">
+
 
 当然你也可以使用selenium动态登录获取
 
@@ -84,7 +85,7 @@ $ git clone https://github.com/NearHuiwen/TaobaoCrawl.git
 
 ## 数据库展示如下：
 
-<img src="https://raw.githubusercontent.com/NearHuiwen/TaobaoCrawl/master/picture/b.png" width="700">
+<img src="https://raw.githubusercontent.com/NearHuiwen/TaobaoCrawl/master/TaobaoCrawl/picture/b.png" width="800">
 
 
 
