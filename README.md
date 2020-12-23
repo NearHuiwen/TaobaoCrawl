@@ -1,4 +1,4 @@
-淘宝根据搜索词爬取商品爬虫，无selenium，动态cookie
+淘宝根据搜索词爬取商品爬虫，无selenium，动态cookie，动态代理IP
 ===============
 
 > 项目普及技术：Scrapy、MySql
@@ -13,9 +13,11 @@
 
 本人核心思路是使用cookie池动态请求接口，请求延迟是2秒，获取相关商品信息，亲测爬取成功（当时使用仅用一个cookie，当然数据越多失效机率越大）
 
+后期我在项目中添加动态IP工具类，如果不想使用可以注释掉 “self.proxy_utils = Proxy_Utils()”
+
 如果使用分布式最好有动态IP，cookie也可以专门有一台机器爬取cookie
 
-（截止版本2020年11月27日，即后面可能接口出现更新，可能会过时，请谅解）
+（截止版本2020年12月23日，即后面可能接口出现更新，可能会过时，请谅解）
 
 源码仅作为和大家一起**学习Python**使用，你可以免费: 拷贝、分发和派生当前源码。
 
@@ -68,7 +70,7 @@ $ git clone https://github.com/NearHuiwen/TaobaoCrawl.git
 
 ## 运行步骤：
 
-1、登录淘宝后，随便搜索点东西，获取cookie如下图
+1、使用浏览器打开淘宝后，随便搜索点东西，获取cookie如下图
 
 <img src="https://raw.githubusercontent.com/NearHuiwen/TaobaoCrawl/master/TaobaoCrawl/picture/a.png" width="800">
 
