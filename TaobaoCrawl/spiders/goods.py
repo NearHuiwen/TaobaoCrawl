@@ -8,7 +8,8 @@ from scrapy import Request
 
 from TaobaoCrawl.items import TaobaocrawlItem
 from TaobaoCrawl.utils.cookie_utils import Cookie_Utils
-from TaobaoCrawl.utils.db_controller_mysql import MySql_Utils
+from TaobaoCrawl.utils.mysql_manager import MySql_Utils
+from TaobaoCrawl.utils.proxy_utils import Proxy_Utils
 
 
 class GoodsSpider(scrapy.Spider):
@@ -38,8 +39,18 @@ class GoodsSpider(scrapy.Spider):
         }
         self.mysql_utils = MySql_Utils()
 
+
         #搜索词
         self.search_word_list=["眼镜","面霜"]
+
+        # 代理IP工具类
+        self.proxy_utils = Proxy_Utils()
+        print("开始爬取可使用的代理IP。。。\n")
+        self.proxy_utils = Proxy_Utils(test_url="https://detail.tmall.com/item.htm?id=600829230603&ns=1&abbucket=14", test_headers=None, test_req_type="get")
+        self.proxy_utils.proxy_ip_sp()
+
+
+
 
     def start_requests(self):
         '''准备开始爬取首页数据
@@ -57,6 +68,9 @@ class GoodsSpider(scrapy.Spider):
             req_headers = copy.deepcopy(self.headers)
             req_headers["Referer"] = req_url
             req_headers["Cookie"] = self.cookie_utils.getCookieByPoll()
+            proxy = self.proxy_utils.getProxyByPoll()
+            if (proxy):
+                meta['proxy'] = proxy
             print(f"准备爬取[{q}]第[1]页req_url=[{req_url}]的列表信息\n")
             yield Request(url=req_url, method='GET', headers=req_headers, callback=self.pagination_parse, meta=meta,
                           dont_filter=True)
@@ -102,6 +116,7 @@ class GoodsSpider(scrapy.Spider):
                 self.add_totalCount(1)
                 print(f'爬取[{item["detail_url"]}]的信息成功，目前已爬取共[{self.totalCount}]条数据\n')
                 yield item
+            #  获取前10页
             if (currentPage < totalPage and currentPage <10):
                 s = data_value
                 data_value = data_value + pageSize
@@ -113,6 +128,9 @@ class GoodsSpider(scrapy.Spider):
                 req_headers = copy.deepcopy(self.headers)
                 req_headers["Referer"] = req_url
                 req_headers["Cookie"] = self.cookie_utils.getCookieByPoll()
+                proxy = self.proxy_utils.getProxyByPoll()
+                if (proxy):
+                    meta['proxy'] = proxy
                 print(f"准备爬取[{q}]第[{currentPage+1}]页req_url=[{req_url}]的列表信息\n")
                 yield Request(url=req_url, method='GET', headers=req_headers, callback=self.pagination_parse, meta=meta,
                               dont_filter=True)

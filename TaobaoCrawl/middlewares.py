@@ -101,7 +101,11 @@ class TaobaocrawlDownloaderMiddleware:
         # - return None: continue processing this exception
         # - return a Response object: stops process_exception() chain
         # - return a Request object: stops process_exception() chain
-        pass
+        #代理失效舍弃
+        proxy=request.meta.get('proxy')
+        spider.proxy_utils.rmProxyByValue(proxy)
+        # spider.proxy_utils.proxy_ip_sp()
+        return None
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
